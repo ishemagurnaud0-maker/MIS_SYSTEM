@@ -1,5 +1,5 @@
-const mangoose = require('mongoose');
-const schoolDataSchema = new mangoose.Schema({
+import mongoose from 'mongoose';
+const schoolDataSchema = new mongoose.Schema({
     studentId:{
         type:String,
         required:true,
@@ -22,7 +22,7 @@ const schoolDataSchema = new mangoose.Schema({
         required:true
     }
 });
-//I want to auto generate custom id's
 
-module.exports = mangoose.model('schoolData', schoolDataSchema);
+
+export default mongoose.model('SchoolData', schoolDataSchema);
  

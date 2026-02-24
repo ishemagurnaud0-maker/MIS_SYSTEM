@@ -1,23 +1,19 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import { connectDb } from './config/database.js';
+import schoolRouter from './routes/schoolRoutes.js'
+
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 const app = express();
 
 app.use(express.json());
 
-mongoose.connect(process.env.DATABASE_URL)
-    .then(()=>{console.log('Database connection established')})
-    .catch((err)=>{console.error('Database connection error:', err)});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-    console.log({message: 'Connected to the database successfully'});
-});
+connectDb();
 
 app.get('/test', (req, res) =>{res.json({message: 'Test endpoint working'})});
 
-const schoolRouter = require('./routes/school')
+
 app.use('/schools',schoolRouter);
 
 
